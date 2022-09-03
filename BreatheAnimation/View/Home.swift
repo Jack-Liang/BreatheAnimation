@@ -16,7 +16,7 @@ struct Home: View {
     @State var startAnimation: Bool = false
     // MARK: This Timer Properties
     @State var timerCount: CGFloat = 0
-    @State var breatheAction: String = NSLocalizedString("Breathe In", comment: "")
+    @State var breatheAction: String = ("Breathe In".localized)
     @State var count: Int = 0
     var body: some View {
         ZStack{
@@ -39,7 +39,7 @@ struct Home: View {
                 // MARK: Extra Time For 0.1 Delay
                 if timerCount > 3.2{
                     timerCount = 0
-                    breatheAction = (breatheAction == NSLocalizedString( "Breathe Out", comment: "") ? NSLocalizedString("Breathe In", comment: "") : NSLocalizedString("Breathe Out", comment: ""))
+                    breatheAction = (breatheAction == ( "Breathe Out".localized) ? ("Breathe In".localized) : ("Breathe Out".localized))
                     withAnimation(.easeInOut(duration: 3).delay(0.1)){
                         startAnimation.toggle()
                     }
@@ -62,7 +62,7 @@ struct Home: View {
     func Content()->some View{
         VStack{
             HStack{
-                Text("Breathe")
+                Text("Breathe".localized)
                     .font(.largeTitle.bold())
                     .fontWeight(.semibold)
                     .foregroundColor(.white)
@@ -91,16 +91,17 @@ struct Home: View {
                     BreatheView(size: size)
                     
                     // MARK: View Properties
-                    Text("Breathe to reduce")
+                    Text("Breathe to reduce".localized)
                         .font(.title3)
                         .foregroundColor(.white)
                         .opacity(showBreatheView ? 0 : 1)
                     
                     ScrollView(.horizontal, showsIndicators: false){
-                        HStack(spacing: 12){
+                        HStack(alignment: .center, spacing: 12){
                             ForEach(sampleTypes){type in
                                 Text(type.title)
                                     .foregroundColor(currentType.id == type.id ? .black : .white)
+                                    .multilineTextAlignment(.center)
                                     .padding(.vertical,10)
                                     .padding(.horizontal,15)
                                     .background {
@@ -126,11 +127,12 @@ struct Home: View {
                         }
                         .padding()
                         .padding(.leading,25)
+                        .frame(maxWidth: .infinity)
                     }
                     .opacity(showBreatheView ? 0 : 1)
                     
                     Button(action: startBreathing) {
-                        Text(showBreatheView ? "Finish Breathe" : "START")
+                        Text(showBreatheView ? "Finish Breathe".localized : "START".localized)
                             .fontWeight(.semibold)
                             .foregroundColor(showBreatheView ? .white.opacity(0.75) : .black)
                             .padding(.vertical,15)
